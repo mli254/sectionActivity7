@@ -15,22 +15,25 @@
                 this.load.image('game_title', 'assets/RP title.png');
                 this.load.image('victory_bg', 'assets/victory_bg.png');
                 this.load.image('snail', 'assets/snails.png');
-                this.load.spritesheet('badge', 'assets/badge.png', { frameWidth: 124, frameHeight: 139 });
             }
             create() {
                 this.add.sprite(200, 150, 'game_title').setScale(0.1);
 
-                // this.cameras.main.once('camerafadeincomplete', function (camera) {camera.fadeOut(2000);});
-                // this.cameras.main.fadeIn(2000);
-                // this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-		        //     this.scene.start('victory')
-	            // })
-                //this.input.on('pointerdown', () => this.scene.start('body'));
+                this.cameras.main.once('camerafadeincomplete', function (camera) {camera.fadeOut(2000);});
+                this.cameras.main.fadeIn(2000);
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+		            this.scene.start('victory')
+	            })
+                this.input.on('pointerdown', () => this.scene.start('body'));
             }
         }
         class victory extends Phaser.Scene {
             constructor() {
                 super('victory')
+            }
+
+            preload() {
+                this.load.spritesheet('badge', 'assets/badge.png', { frameWidth: 124, frameHeight: 139 });
             }
 
             create() {
@@ -45,9 +48,7 @@
                     repeat: -1
                 })
 
-                badge.anims.play('sparkle', true);
-
-
+                this.badge.anims.play('sparkle', true);
             }
         }
 
